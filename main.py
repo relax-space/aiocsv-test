@@ -16,21 +16,9 @@ async def load_raw_data():
 
 async def split_data():
     raw_data = await load_raw_data()
-
-    split_rule = [190, 174, 257, 225, 229, 234, 250, 239, 290, 268, 258, 251, 247, 215, 268, 288, 234, 260, 285, 276, 282, 285, 278, 274, 292, 283, 283, 290, 228,
-                  285, 288, 296, 272, 272, 275, 268, 290, 293, 286, 269, 297, 279, 281, 271, 223, 173, 244, 137, 260, 194, 246, 268, 282, 289, 230, 258, 294, 229, 206, 283, 281, 263, 280, 246, 282, 287, 294, 285, 300, 297, 296, 294, 296, 293, 299, 297, 290, 226, 258, 253, 274, 290, 284, 295, 280, 291, 279, 300, 230, 283, 292, 288, 287, 216, 277, 275, 275, 297, 299, 247, 213, 88, 111, 101, 217, 96, 74, 11]
-    assert len(raw_data) == 27558
-
-    new_data = []
-    start = 0
-    for i in split_rule:
-        new_data.append(raw_data[start:start+i])
-        start += i
-
-    split_len = []
-    for i in new_data:
-        split_len.append(len(i))
-    assert split_rule == split_len
+    # There are 10 pieces of data in each small list
+    n = 10
+    new_data = [raw_data[i:i+n] for i in range(0, len(raw_data), n)]
     return new_data
 
 
